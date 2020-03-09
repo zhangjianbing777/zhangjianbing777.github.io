@@ -18,8 +18,8 @@
   
   <entry>
     <title>我的2020</title>
-    <link href="http://yoursite.com/[object%20Object]/my2020.html"/>
-    <id>http://yoursite.com/[object%20Object]/my2020.html</id>
+    <link href="http://yoursite.com/life/my2020.html"/>
+    <id>http://yoursite.com/life/my2020.html</id>
     <published>2020-03-09T15:04:42.000Z</published>
     <updated>2020-03-09T15:07:19.907Z</updated>
     
@@ -47,8 +47,8 @@
   
   <entry>
     <title>试试新文章</title>
-    <link href="http://yoursite.com/[object%20Object]/%E8%AF%95%E8%AF%95%E6%96%B0%E6%96%87%E7%AB%A0.html"/>
-    <id>http://yoursite.com/[object%20Object]/%E8%AF%95%E8%AF%95%E6%96%B0%E6%96%87%E7%AB%A0.html</id>
+    <link href="http://yoursite.com/uncategorized/%E8%AF%95%E8%AF%95%E6%96%B0%E6%96%87%E7%AB%A0.html"/>
+    <id>http://yoursite.com/uncategorized/%E8%AF%95%E8%AF%95%E6%96%B0%E6%96%87%E7%AB%A0.html</id>
     <published>2020-03-08T06:28:30.029Z</published>
     <updated>2020-03-08T06:29:09.453Z</updated>
     
@@ -69,8 +69,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/[object%20Object]/hello-world.html"/>
-    <id>http://yoursite.com/[object%20Object]/hello-world.html</id>
+    <link href="http://yoursite.com/new-world/hello-world.html"/>
+    <id>http://yoursite.com/new-world/hello-world.html</id>
     <published>2020-03-08T06:03:47.363Z</published>
     <updated>2020-03-09T14:07:59.428Z</updated>
     
