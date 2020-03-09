@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-03-08T06:29:09.453Z</updated>
+  <updated>2020-03-09T15:07:19.907Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我的2020</title>
+    <link href="http://yoursite.com/[object%20Object]/my2020.html"/>
+    <id>http://yoursite.com/[object%20Object]/my2020.html</id>
+    <published>2020-03-09T15:04:42.000Z</published>
+    <updated>2020-03-09T15:07:19.907Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>说来也奇怪，感觉2020来的好快。有着道不尽的话要说。</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;说来也奇怪，感觉2020来的好快。有着道不尽的话要说。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="life" scheme="http://yoursite.com/categories/life/"/>
+    
+    
+      <category term="life" scheme="http://yoursite.com/tags/life/"/>
+    
+  </entry>
   
   <entry>
     <title>试试新文章</title>
