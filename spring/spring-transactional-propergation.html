@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="在谷歌上百度"><title>Spring事务的传播行为 | 在谷歌上百度</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.0/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Spring事务的传播行为</h1><a id="logo" href="/.">在谷歌上百度</a><p class="description">但行好事，莫问前程</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/history/"><i class="fa fa-book"> 历史</i></a><a href="/comments/"><i class="fa fa-comments"> 留言</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Spring事务的传播行为</h1><div class="post-meta">Mar 8, 2019<span> | </span><span class="category"><a href="/categories/spring/">spring</a></span></div><a class="disqus-comment-count" data-disqus-identifier="spring/spring-transactional-propergation.html" href="/spring/spring-transactional-propergation.html#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring事务的七种传播行为"><span class="toc-number">1.</span> <span class="toc-text">Spring事务的七种传播行为</span></a></li></ol></div></div><div class="post-content"><h1 id="Spring事务的七种传播行为"><a href="#Spring事务的七种传播行为" class="headerlink" title="Spring事务的七种传播行为"></a>Spring事务的七种传播行为</h1><p><strong>首先举例事务的嵌套：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ServiceA &#123;  </span><br><span class="line">     <span class="function"><span class="keyword">void</span> <span class="title">methodA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         ServiceB.methodB();</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">ServiceB &#123;   </span><br><span class="line">     <span class="function"><span class="keyword">void</span> <span class="title">methodB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         </span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><em>其中ServiceA#methodA(我们称之为外部事务)，ServiceB#methodB(我们称之为内部事务)</em></p>
+<p><strong>一、PROPAGATION_REQUIRED（Spring默认，常用）</strong></p>
+<p>如果当前要执行的事务不在另外一个事务中，那么就新起一个事务。比如ServiceB.methodB的事务级别    定义为PROPAGATION_REQUIRED，那么当执行ServiceA.methodA的时候有两种情况：</p>
+<ol>
+<li>如果ServiceA.methodA已经存在事务，这时调用ServiceB.methodB，ServiceB.methodB看到自己已经运行在ServiceA.methodA的事务内部，就不再起新的事务。这时只有外部事务并且他们是共用的，所以这时ServiceA.methodA或者ServiceB.methodB无论哪个发生异常methodA和methodB作为一个整体都将一起回滚。</li>
+<li>如果ServiceA.methodA没有事务，ServiceB.methodB就会为自己分配一个事务。这样，在ServiceA.methodA中是没有事务控制的。只是在ServiceB.methodB内的任何地方出现异常，ServiceB.methodB将会被回滚，不会引起ServiceA.methodA的回滚。</li>
+</ol>
+<p><strong>二、PROPAGATION_REQUIRES_NEW（常用）</strong></p>
+<p>启动一个新的，不依赖于环境的 “内部” 事务。 这个事务将被完全 commited 或 rolled back 而不依赖于外部事务，它拥有自己的隔离范围，自己的锁，等等。当内部事务开始执行时，外部事务将被挂起，内务事务结束后，外部事务才将继续执行。</p>
+<p>比如我们设计ServiceA.methodA的事务级别为PROPAGATION_REQUIRED，ServiceB.methodB的事务级别为PROPAGATION_REQUIRES_NEW，那么当执行到ServiceB.methodB的时候，ServiceA.methodA所在的事务就会挂起，ServiceB.methodB会起一个新的事务，等待ServiceB.methodB的事务完成以后，他才继续执行。他与PROPAGATION_REQUIRED 的事务区别在于事务的回滚程度了。因为ServiceB.methodB是新起一个事务，那么就是存在两个不同的事务：</p>
+<ol>
+<li>如果ServiceB.methodB已经提交，那么ServiceA.methodA失败回滚，ServiceB.methodB是不会回滚的。</li>
+<li>如果ServiceB.methodB失败回滚，如果他抛出的异常被ServiceA.methodA的try..catch捕获并处理，ServiceA.methodA事务仍然可能提交；如果他抛出的异常未被ServiceA.methodA捕获处理，ServiceA.methodA事务将回滚。</li>
+</ol>
+<p><strong>三、PROPAGATION_NESTED（常用）</strong></p>
+<p>开始一个”嵌套的”事务，它是已经存在事务的一个真正的子事务。嵌套事务开始执行时，它将取得一个 savepoint。如果这个嵌套事务失败，我们将回滚到此savepoint。潜套事务是外部事务的一部分，只有外部事务结束后它才会被提交。</p>
+<p>比如我们将ServiceA.methodA事务级别设置为PROPAGATION_REQUIRED，ServiceB.methodB的事务级别为PROPAGATION_NESTED，那么当执行到ServiceB.methodB的时候，ServiceA.methodA所在的事务就会挂起，ServiceB.methodB会起一个新的子事务并设置savepoint，等待ServiceB.methodB的事务完成以后，ServiceA.methodA的事务才继续执行。因为ServiceB.methodB是外部事务的子事务，那么</p>
+<ol>
+<li>ServiceB.methodB执行完成无异常，此时还未提交事务，如果ServiceA.methodA发生异常回滚，ServiceB.methodB也将回滚。</li>
+<li>如果ServiceB.methodB失败回滚，如果他抛出的异常被ServiceA.methodA的try..catch捕获并处理，ServiceA.methodA事务仍然可能提交；如果他抛出的异常未被ServiceA.methodA捕获处理，ServiceA.methodA事务将回滚。</li>
+</ol>
+<p>他与PROPAGATION_REQUIRES_NEW的区别是：<br>PROPAGATION_REQUIRES_NEW完全是一个新事务它与外部事务相互独立，而 PROPAGATION_NESTED 则是外部事务的子事务，如果外部事务 commit， 嵌套事务也会被 commit，这个规则同样适用于 roll back。</p>
+<p><strong>在Spring中使用PROPAGATION_NESTED的前提条件：</strong></p>
+<ol>
+<li>TransactionManager中的nestedTransactionAllowed属性必须是true；</li>
+<li>JKD版本为1.4+，因为需要SavePoint类；</li>
+<li>JDBC Driver必须支持JDBC3.0。</li>
+</ol>
+<p><strong>四、PROPAGATION_SUPPORTS</strong></p>
+<p>如果当前运行的代码包含在事务中，就以事务的方式运行，如果不在一个事务中，就以非事务的方式运行。</p>
+<p><strong>五、PROPAGATION_NOT_SUPPORTED</strong></p>
+<p>表示当前不支持事务。例如传播属性为PROPAGATION_REQUIRED的外部事务ServiceA.methodA，而ServiceB.methodB为内部事务，它的传播属性为PROPAGATION_NOT_SUPPORTED，当运行到ServiceB.methodB的时候ServiceA.methodA的事务将被挂起，待ServiceB.methodB以非事务的方式运行完以后，再来执行ServiceA.methodA的事务。</p>
+<p><strong>六、PROPAGATION_MANDATORY</strong></p>
+<p>必须在一个事务中运行。也就是说，他只能被一个父事务调用。否则，他就要抛出异常。</p>
+<p><strong>七、PROPAGATION_NEVER</strong></p>
+<p>不能在事务中运行。假设ServiceA.methodA的事务级别是PROPAGATION_REQUIRED， 而ServiceB.methodB的事务级别是PROPAGATION_NEVER ，那么ServiceB.methodB就要抛出异常了。</p>
+</div><div class="tags"><a href="/tags/spring/">spring</a></div><div class="post-nav"><a class="pre" href="/concurrent/concurrent-threadpool.html">Java中的线程池</a><a class="next" href="/interview/copy-deepcopy.html">关于Java的浅拷贝和深拷贝</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'http://yoursite.com/spring/spring-transactional-propergation.html';
+    this.page.identifier = 'spring/spring-transactional-propergation.html';
+    this.page.title = 'Spring事务的传播行为';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//zhangjianbing.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//zhangjianbing.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://zhangjianbing.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/algorithms/">algorithms</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/concurrent/">concurrent</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/interview/">interview</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/interview/" style="font-size: 20px;">interview</a> <a href="/tags/spring/" style="font-size: 25px;">spring</a> <a href="/tags/life/" style="font-size: 15px;">life</a> <a href="/tags/algorithms/" style="font-size: 15px;">algorithms</a> <a href="/tags/concurrent/" style="font-size: 15px;">concurrent</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/interview/beanutils.html">还在使用BeanUtils吗？</a></li><li class="post-list-item"><a class="post-list-link" href="/life/my2020.html">2020特殊的一年</a></li><li class="post-list-item"><a class="post-list-link" href="/algorithms/interger-cover.html">整数的翻转</a></li><li class="post-list-item"><a class="post-list-link" href="/concurrent/concurrent-threadpool.html">Java中的线程池</a></li><li class="post-list-item"><a class="post-list-link" href="/spring/spring-transactional-propergation.html">Spring事务的传播行为</a></li><li class="post-list-item"><a class="post-list-link" href="/interview/copy-deepcopy.html">关于Java的浅拷贝和深拷贝</a></li><li class="post-list-item"><a class="post-list-link" href="/spring/spring-autowired.html">Spring源码分析：@Autowired注解原理分析</a></li><li class="post-list-item"><a class="post-list-link" href="/spring/spring-loop.html">Spring源码分析：Spring的循环依赖分析</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近评论</i></div><script type="text/javascript" src="//zhangjianbing.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://www.cnblogs.com/zhangjianbing/" title="在谷歌上百度" target="_blank">在谷歌上百度</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">在谷歌上百度.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
