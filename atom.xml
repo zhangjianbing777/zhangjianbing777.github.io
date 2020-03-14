@@ -216,7 +216,7 @@
     <link href="http://yoursite.com/life/life-project-online.html"/>
     <id>http://yoursite.com/life/life-project-online.html</id>
     <published>2019-11-06T16:35:00.000Z</published>
-    <updated>2020-03-14T07:19:45.702Z</updated>
+    <updated>2020-03-14T07:21:44.708Z</updated>
     
     <content type="html"><![CDATA[<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=298 height=52 src="//music.163.com/outchain/player?type=2&id=29723041&auto=0&height=32"></iframe>　　<a id="more"></a><p>从2019年3月28号到2019年11月07号历经8个月，团队终于有了自己的成果，虽然中间过程坎坎坷坷，但最终的结果还是好的。从项目准备立项到立项，提出需求到落实，从框架搭建到模块拆分，再到代码落实，需求变更、业务方调整、第三方对接等等阻碍，真的是有一种不翔到一泻千里反复轮回的感觉。<br>　　首先介绍一下我们”庞大”的研发队伍吧。前端SDE：广亮和中海以及中途走的李洋、相新。后台SDE：丹姐、光晓、许鹏、帅超、晓鑫和我还有中途走的李冲。测试：吴晓、大洋以及后来的王亮和晓龙。TPM：大神白尼and美女谊谨。SDM：大神刚哥。工作这么久以来，从未遇到过这样的队伍，团队氛围融洽、队友间配合默契、有过激烈的讨论、有过各抒己见的工作态度、也有过各持己见的久刚不下、但更多的是开心、舒坦，没有的是相互推诿、互相责怪、做事拖拉。大家一起吃饭，一起加班，一起讨论解决方案，这几个月真的非常开心。遗憾的是其中有几个人中途走了，相新回老家了，李洋去了自如，帅超去了京东，这里真心祝福他们工作顺利，有机会再做同事、做并肩作战的伙伴。<br>　　然后简单介绍下我们的项目吧。项目代号”LongCoin”。为集团内部员工提供福利的一款产品，员工之间可以使用虚拟币(龙币)相互转账、预约、祝福，还可以申请活动福利发放。高阶员工可以使用龙币打赏、犒赏员工、激励员工。龙币进项：集团统一下发到各个账户，再由各个账户发放到个人或者管理者账户中。龙币只能在内部员工间流转，它唯一的出项就是员工使用龙币兑换了第三方福利平台的积分，使用积分进行了消费。<br>　　最后，很久没更新博客了，因为这几周太忙了（真他娘的会找借口）。come on！<br><img src="https://image.zhangjianbing.com/article/picture/longcointeam.png#mirages-width=1590&mirages-height=1062&mirages-cdn-type=1&shadow" alt="请输入图片描述"></p>]]></content>
     
