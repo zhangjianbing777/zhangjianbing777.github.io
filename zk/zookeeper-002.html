@@ -1,10 +1,120 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="在谷歌上百度"><title>还在使用BeanUtils吗？ | 在谷歌上百度</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.0/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">还在使用BeanUtils吗？</h1><a id="logo" href="/.">在谷歌上百度</a><p class="description">但行好事，莫问前程</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/history/"><i class="fa fa-book"> 历史</i></a><a href="/comments/"><i class="fa fa-comments"> 留言</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">还在使用BeanUtils吗？</h1><div class="post-meta">Mar 11, 2020<span> | </span><span class="category"><a href="/categories/interview/">interview</a></span></div><a class="disqus-comment-count" data-disqus-identifier="interview/beanutils.html" href="/interview/beanutils.html#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div></div></div><div class="post-content"><blockquote>
-<p>从名字上来看，BeanUtils是一个很好用的工具类。</p>
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="在谷歌上百度"><title>Apache ZooKeeper（二）：intrueduction和常用命令 | 在谷歌上百度</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.0/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Apache ZooKeeper（二）：intrueduction和常用命令</h1><a id="logo" href="/.">在谷歌上百度</a><p class="description">但行好事，莫问前程</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/history/"><i class="fa fa-book"> 历史</i></a><a href="/comments/"><i class="fa fa-comments"> 留言</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Apache ZooKeeper（二）：intrueduction和常用命令</h1><div class="post-meta">Jul 16, 2019<span> | </span><span class="category"><a href="/categories/zk/">zk</a></span></div><a class="disqus-comment-count" data-disqus-identifier="zk/zookeeper-002.html" href="/zk/zookeeper-002.html#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#服务端命令"><span class="toc-number">1.</span> <span class="toc-text">服务端命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#客户端命令"><span class="toc-number">2.</span> <span class="toc-text">客户端命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#get节点内容"><span class="toc-number">2.1.</span> <span class="toc-text">get节点内容</span></a></li></ol></li></ol></div></div><div class="post-content"><p>本文ZooKeeper版本：3.4.14，主要介绍zookeeper的常用命令。</p>
+<h1 id="服务端命令"><a href="#服务端命令" class="headerlink" title="服务端命令"></a>服务端命令</h1><blockquote>
+<p>进入bin目录：</p>
 </blockquote>
-</div><div class="tags"><a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a></div><div class="post-nav"><a class="next" href="/life/life-my2020.html">2020年</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
-    this.page.url = 'http://yoursite.com/interview/beanutils.html';
-    this.page.identifier = 'interview/beanutils.html';
-    this.page.title = '还在使用BeanUtils吗？';
+<ul>
+<li><code>./zkServer.sh start</code>，除了<code>start</code>还可以加<code>{start|start-foreground|stop|restart|status|upgrade|print-cmd}</code>。<h1 id="客户端命令"><a href="#客户端命令" class="headerlink" title="客户端命令"></a>客户端命令</h1><blockquote>
+<p>连接服务端</p>
+</blockquote>
+</li>
+<li><code>/zkCli.sh</code> 连接本地</li>
+<li><code>./zkCli.sh -server 192.168.1.1:2181</code> 连接远程<blockquote>
+<p>创建普通的节点</p>
+</blockquote>
+</li>
+<li><code>create /zhangjianbing &quot;a boy&quot;</code><blockquote>
+<p>创建临时的节点</p>
+</blockquote>
+</li>
+<li><code>create -e /zhangjianbing &quot;a boy&quot;</code><blockquote>
+<p>创建顺序节点</p>
+</blockquote>
+</li>
+<li><code>create -s /zhangjianbing &quot;a boy&quot;</code><blockquote>
+<p>创建临时顺序节点</p>
+</blockquote>
+</li>
+<li><code>create -s -e /zhangjianbing &quot;a boy&quot;</code><blockquote>
+<p>获取节点内容</p>
+</blockquote>
+</li>
+<li><code>get /zhangjianbing</code><blockquote>
+<p>删除节点内容</p>
+</blockquote>
+</li>
+<li><code>delete /zhangjianbing</code> 适用于该节点下没有子节点</li>
+<li><code>rmr /zhangjianbing</code> 递归删除，若该节点下有子节点，会先删除子节点<blockquote>
+<p>修改节点</p>
+</blockquote>
+</li>
+<li><code>set /zhangjianbing</code><blockquote>
+<p>在临时节点下是不能够创建持久节点的。</p>
+</blockquote>
+<h2 id="get节点内容"><a href="#get节点内容" class="headerlink" title="get节点内容"></a>get节点内容</h2><table>
+<thead>
+<tr>
+<th align="center">字段</th>
+<th align="center">内容</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">a boy</td>
+<td align="center">该节点绑定的值</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">cZxid</td>
+<td align="center">0x262ea76</td>
+<td align="center">该节点创建时的id</td>
+</tr>
+<tr>
+<td align="center">ctime</td>
+<td align="center">Mon Jul 15 14:27:17 CST 2019</td>
+<td align="center">该节点的创建时间</td>
+</tr>
+<tr>
+<td align="center">mZxid</td>
+<td align="center">0x262ea76</td>
+<td align="center">节点最新一次更新发生时的id</td>
+</tr>
+<tr>
+<td align="center">mtime</td>
+<td align="center">Mon Jul 15 14:27:17 CST 2019</td>
+<td align="center">该节点的修改时间</td>
+</tr>
+<tr>
+<td align="center">pZxid</td>
+<td align="center">0x262ea76</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">cversion</td>
+<td align="center">0</td>
+<td align="center">其子节点的更新次数</td>
+</tr>
+<tr>
+<td align="center">dataVersion</td>
+<td align="center">0</td>
+<td align="center">该节点数据的更新次数</td>
+</tr>
+<tr>
+<td align="center">aclVersion</td>
+<td align="center">0</td>
+<td align="center">节点ACL(授权信息)的更新次数</td>
+</tr>
+<tr>
+<td align="center">ephemeralOwner</td>
+<td align="center">0x0</td>
+<td align="center">标识持久节点，若非，则为临时节点的sessionId</td>
+</tr>
+<tr>
+<td align="center">dataLength</td>
+<td align="center">5</td>
+<td align="center">节点数据的字节数</td>
+</tr>
+<tr>
+<td align="center">numChildren</td>
+<td align="center">0</td>
+<td align="center">子节点个数</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</div><div class="tags"><a href="/tags/zookeeper/">zookeeper</a></div><div class="post-nav"><a class="pre" href="/tools/tools-markdown.html">Markdown语法简单使用</a><a class="next" href="/zk/zookeeper-001.html">Apache ZooKeeper（一）：standaloned单机版安装</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'http://yoursite.com/zk/zookeeper-002.html';
+    this.page.identifier = 'zk/zookeeper-002.html';
+    this.page.title = 'Apache ZooKeeper（二）：intrueduction和常用命令';
   };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
 url: 'https://disqus.com/next/config.json',
 timeout: 2500,
