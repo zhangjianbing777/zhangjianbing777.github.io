@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="在谷歌上百度"><title>RSA非对称加密算法简述 | 在谷歌上百度</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.0/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">RSA非对称加密算法简述</h1><a id="logo" href="/.">在谷歌上百度</a><p class="description">但行好事，莫问前程</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/history/"><i class="fa fa-book"> 历史</i></a><a href="/comments/"><i class="fa fa-comments"> 留言</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">RSA非对称加密算法简述</h1><div class="post-meta">Feb 22, 2020<span> | </span><span class="category"><a href="/categories/algorithms/">algorithms</a></span></div><a class="disqus-comment-count" data-disqus-identifier="algorithms/algorithms-rsa.html" href="/algorithms/algorithms-rsa.html#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#对称加密"><span class="toc-number">1.</span> <span class="toc-text">对称加密</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#示例"><span class="toc-number">1.1.</span> <span class="toc-text">示例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#非对称加密"><span class="toc-number">2.</span> <span class="toc-text">非对称加密</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#示例-1"><span class="toc-number">2.1.</span> <span class="toc-text">示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数学原理"><span class="toc-number">2.2.</span> <span class="toc-text">数学原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安全性"><span class="toc-number">2.2.1.</span> <span class="toc-text">安全性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结论"><span class="toc-number">2.2.2.</span> <span class="toc-text">结论</span></a></li></ol></li></ol></li></ol></div></div><div class="post-content"><h1 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h1><blockquote>
+<p>简单来说对称加密就是加密和解密用的密钥都是相同的，能够反推出来。对称加密的优势就是快，缺点是密钥分发问题，容易被窃取，但现在有了量子保密通讯来分发密钥就相对安全多了，可惜一般人用不到。</p>
+</blockquote>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><blockquote>
+<p>A和B进行通讯，A想把数字10（10就叫做明文）传给B，但考虑到安全性，A和B约定好，A将明文加5后，传给B，B收到A传的数字后，减5，得出明文，那数字5就叫做密钥，这个密钥是A和B共同约定好的，不可以让第三个人知道，这样加解密的关系就成立了，当然，A和B的通讯不一定要加减5这么简单，可以做一系列很复杂的运算，但其本质还是一样的，即对称加密。</p>
+</blockquote>
+<h1 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h1><blockquote>
+<p>非对称加密相对于对称加密来说就显得很安全了，简单来说就是加密和解密用的并不是同一个密钥，这样就不存在被窃取的可能。最常见的就是RSA非对称加密了，下面简单来说下是如何实现RSA加密的。</p>
+</blockquote>
+<h2 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h2><blockquote>
+<p>A想把数字m传送给B，首先B自己这边生成两个有关系的数字e和d，其中e叫公钥，公钥可以给任何一个人，当然也包括A。d叫私钥，d除了B自己知道，不可让其他任何人知道，包括A。ok，现在A拿到B的公钥e，利用算法把消息m通过e加密得到密文c，然后把密文c给了B，B利用自己的私钥d通过算法把密文c解密得出明文数字m，这样B就安全的获得了A传过来的数字m。</p>
+</blockquote>
+<h2 id="数学原理"><a href="#数学原理" class="headerlink" title="数学原理"></a>数学原理</h2><ol>
+<li>找出两个质数，p和q</li>
+<li>n = p * q</li>
+<li>欧拉函数：t = (p-1)*(q-1)</li>
+<li>公钥e：1 &lt; e &lt; t的整数，并且 e 和 t 互质。私钥 d * e 除以 t，余数为1。<blockquote>
+<p>例如t = 20，p = 3，q = 11，e = 3，d = 7符合上述要求。回到非对称加密示例上来，A要把数字m传送给B。</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li>加密：首先A要把数字m加密，数字m的e次幂除以n然后求余，得出了密文c。</li>
+<li>解密：然后B要把密文c解密，密文c的d次幂除以n然后求余，得出明文数字m。<h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3></li>
+</ul>
+<ol>
+<li>A给B传输数据的时候，密文c、n(n可以算出来)和公钥e是公开的。</li>
+<li>如果想解密那就需要获得私钥d。</li>
+<li>获得私钥d，需要知道e和t。</li>
+<li>e是公开的，获得t就需要知道p和q。</li>
+<li>想获得p和q就需要对n进行质因分解。</li>
+<li>比较小的数数字质因分解很简单，比如说21，在RSA算法中，一般n为1024位的二进制数，这样的数字质因分解是很困难的，普通计算机需要很多年，不过现在有了量子计算机，计算速度很快，这也就是为什么银行通常过一段时间会更换RSA密钥对的原因了。<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><blockquote>
+<p>想破解RSA加密还是很困难的，在普通RSA的基础上出现了很多的变种，让破解变得更加困难了。破解RSA最大的困难是大数的质因分解。</p>
+</blockquote>
+</li>
+</ol>
+</div><div class="tags"><a href="/tags/%E7%AE%97%E6%B3%95/">算法</a></div><div class="post-nav"><a class="pre" href="/life/life-my2020.html">2020年</a><a class="next" href="/boot/boot-ut-powermock.html">SpringBoot使用Powermockito单元测试</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'http://yoursite.com/algorithms/algorithms-rsa.html';
+    this.page.identifier = 'algorithms/algorithms-rsa.html';
+    this.page.title = 'RSA非对称加密算法简述';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//zhangjianbing.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//zhangjianbing.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://zhangjianbing.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/algorithms/">algorithms</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/boot/">boot</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cloud/">cloud</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/concurrent/">concurrent</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/designpattern/">designpattern</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/interview/">interview</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/zookeeper/">zookeeper</a><span class="category-list-count">8</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 16.25px;">算法</a> <a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 20px;">面试</a> <a href="/tags/Boot/" style="font-size: 23.75px;">Boot</a> <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" style="font-size: 25px;">并发编程</a> <a href="/tags/Cloud/" style="font-size: 15px;">Cloud</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 18.75px;">设计模式</a> <a href="/tags/Kafka/" style="font-size: 21.25px;">Kafka</a> <a href="/tags/%E7%B2%BE%E5%BD%A9%E7%94%9F%E6%B4%BB/" style="font-size: 21.25px;">精彩生活</a> <a href="/tags/Mac/" style="font-size: 15px;">Mac</a> <a href="/tags/Spring/" style="font-size: 17.5px;">Spring</a> <a href="/tags/Zookeeper/" style="font-size: 22.5px;">Zookeeper</a> <a href="/tags/ZooKeeper/" style="font-size: 15px;">ZooKeeper</a> <a href="/tags/MarkDown/" style="font-size: 15px;">MarkDown</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/interview/beanutils.html">还在使用BeanUtils吗？</a></li><li class="post-list-item"><a class="post-list-link" href="/life/life-my2020.html">2020年</a></li><li class="post-list-item"><a class="post-list-link" href="/algorithms/algorithms-rsa.html">RSA非对称加密算法简述</a></li><li class="post-list-item"><a class="post-list-link" href="/boot/boot-ut-powermock.html">SpringBoot使用Powermockito单元测试</a></li><li class="post-list-item"><a class="post-list-link" href="/boot/boot-ut-mokito.html">SpringBoot使用Mockito单元测试</a></li><li class="post-list-item"><a class="post-list-link" href="/interview/interview-cyclicbarrier-countdownlatch.html">CyclicBarrier和CountDownLatch比较</a></li><li class="post-list-item"><a class="post-list-link" href="/designpattern/designpattern-strategy.html">设计模式之：策略模式</a></li><li class="post-list-item"><a class="post-list-link" href="/designpattern/designpattern-template.html">设计模式之：模板方法模式</a></li><li class="post-list-item"><a class="post-list-link" href="/concurrent/concurrentprogram-cyclicbarrier.html">Java 并发编程系列之 (七)：CyclicBarrier 工具类</a></li><li class="post-list-item"><a class="post-list-link" href="/concurrent/concurrentprogram-countdownlatch.html">Java 并发编程系列之 (六)：CountDownLatch工具类</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近评论</i></div><script type="text/javascript" src="//zhangjianbing.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://www.cnblogs.com/zhangjianbing/" title="在谷歌上百度" target="_blank">在谷歌上百度</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">在谷歌上百度.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
